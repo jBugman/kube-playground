@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: hello-front
+  labels:
+    app: front
+spec:
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+      - name: hello-front
+        image: jbugman/hello-kube-front:v4
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: front
+  name: frontend
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: front
+  type: NodePort
