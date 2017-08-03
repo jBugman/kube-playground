@@ -6,7 +6,7 @@
     GOOS=linux go build -o web/target/hello web/hello.go
     docker build -t jbugman/hello-kube-web:latest -f web/Dockerfile web
     kubectl run hello-web --image=jbugman/hello-kube-web:v1
-    kubectl expose deployment hello-web --name=web --port=8080
+    kubectl expose deployment hello-web --name=web --port=80 --target-port=8080
 
     # Backend
     GOOS=linux go build -o backend/target/hello backend/backend.go
