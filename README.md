@@ -11,6 +11,7 @@
     # Backend
     GOOS=linux go build -o backend/target/hello backend/backend.go
     docker build -t jbugman/hello-kube-backend:latest -f backend/Dockerfile backend
+    kubectl run hello-backend --image=jbugman/hello-kube-backend:v1
     kubectl expose deployment hello-backend --name=backend --port=80 --target-port=8080
 
     # Deployment rollout
@@ -18,4 +19,5 @@
 
     # Frontend
     docker build -t jbugman/hello-kube-front:latest -f frontend/Dockerfile frontend
-    kubectl expose deployment hello-web --type=NodePort --name=frontend --port=80
+    kubectl run hello-front --image=jbugman/hello-kube-front:v1
+    kubectl expose deployment hello-front --type=NodePort --name=frontend --port=80
